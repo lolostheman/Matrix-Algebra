@@ -19,6 +19,7 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include "matrix.h"
 
 Matrix::Matrix(){
@@ -61,8 +62,9 @@ void Matrix::assign(double q, double w, double e, double r){
 	this->d = r;
 }
 void Matrix::print(){
+	
 	cout<<"---\t\t\t---\n";
-	cout<<"|\t"<<this->a<<"\t"<<this->b<<"\t  |\n";
+	cout<<"|\t"<<fixed<<setprecision(4)<<this->a<<"\t"<<this->b<<"\t  |\n";
 	cout<<"|\t\t\t  |\n";
 	cout<<"|\t"<<this->c<<"\t"<<this->d<<"\t  |\n";
 	cout<<"---\t\t\t---\n";
