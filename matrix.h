@@ -1,4 +1,6 @@
 /******************************************************************
+  File: matrix.h
+ 
  * Program #: Homework #2
  *
  * Programmer: Logan Morro
@@ -9,11 +11,7 @@
  *
  * Pledge: I have neither given nor received unauthorized aid on this program.
  *
- * Description: Program to demonstrate makefiles
- *
- * Input: NA
- *
- * Output: print statements showing the results.
+ * Description: this is the .h file for the matrix program. This file initializes mulitpe constructors and a desructor. The matrix functions are defined here. The private values are 4 doubles a,b,c,and d, these doubles are the 4 entries for the 2x2 matrix.
  *
  ******************************************************************/
 #include <iostream>
