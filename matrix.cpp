@@ -52,9 +52,9 @@ void Matrix::assign(double q, double w, double e, double r){
 }
 void Matrix::print(){
 	cout<<"---\t\t\t---\n";
-	cout<<"|\t"<<this->a<<"\t"<<this->b<<"\t|\n";
-	cout<<"|\t\t\t\t|\n";
-	cout<<"|\t"<<this->c<<"\t"<<this->d<<"\t|\n";
+	cout<<"|\t"<<this->a<<"\t"<<this->b<<"\t  |\n";
+	cout<<"|\t\t\t  |\n";
+	cout<<"|\t"<<this->c<<"\t"<<this->d<<"\t  |\n";
 	cout<<"---\t\t\t---\n";
 }
 double Matrix::det(){
