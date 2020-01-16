@@ -1,11 +1,11 @@
 /******************************************************************
   File: matrix.h
  
- * Program #: Homework #2
+ * Program #: Homework #3
  *
  * Programmer: Logan Morro
  *
- * Due Date: 2/17
+ * Due Date: 3/04
  *
  * EGRE 491, Spring 2020       Instructor: Robert Klenke
  *
@@ -27,6 +27,14 @@ public:
 		c = copy.c;
 		d = copy.d;
 	}
+
+	Matrix& operator=(const Matrix& m);
+	Matrix operator+(const Matrix& y);
+	Matrix operator-(const Matrix&);
+	Matrix operator*(const Matrix&);
+	Matrix operator/(const Matrix&);
+
+
 
 //	~Matrix();	//destructor
 	void inverse();

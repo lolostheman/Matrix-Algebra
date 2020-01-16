@@ -44,6 +44,30 @@ Matrix::Matrix(double a, double b, double c, double d){
  * Description:
  * 	This function uses basic matrix rules and applies them to a 2x2 matrix.
  */
+
+Matrix Matrix::operator+(const Matrix& y){
+	Matrix a_temp, b_temp, c;
+	a_temp = *this;
+	b_temp = y;
+	z.a = a_temp.a + b_temp.a;
+	z.b = a_temp.b + b_temp.b;
+	z.c = a_temp.c + b_temp.c;
+	z.d =  a_temp.d + b_temp.d;
+	return c;
+}
+
+Matrix Matrix::operator-(const Matrix& y){
+	Matrix a_temp, b_temp, c;
+	a_temp = *this;
+	b_temp = y;
+	z.a = a_temp.a - b_temp.a;
+	z.b = a_temp.b - b_temp.b;
+	z.c = a_temp.c - b_temp.c;
+	z.d = a_temp.d - b_temp.d;
+	return c;
+}
+
+
 void Matrix::inverse(){
 	if(Matrix::isSingular()==false){
 	double temp1 = this->a;//temp value for a

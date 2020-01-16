@@ -1,56 +1,131 @@
-#include <fstream>
 #include <iostream>
+#include <fstream>
 #include "matrix.h"
 
-using namespace std;
 
 int main(int argc, char *argv[])
 {
-  Matrix x;
-  Matrix y(1.0, 2.0, 3.0, 4.0);
-  Matrix z(y);
+	ifstream infile;
+	ofstream outfile;
+	string prog_name;
+	string infile_name;
+	string outfile_name;
 
-  cout << "\nx matrix is: \n";
-  x.print();
-  cout << "|x| = " << x.det() << "\n";
-  if(x.isSingular())
-    cout << "x is a singluar matrix\n";
-  else
-    cout << "x is not a singluar matrix\n";
+	Matrix w;
+	Matrix x;
+	Matrix y(1.0, 2.0, 3.0, 4.0);
+	Matrix z(x);
 
-  cout << "\ny matrix is: \n";
-  y.print();
-  cout << "|y| = " << y.det() << "\n";
-  if(y.isSingular())
-    cout << "y is a singluar matrix\n";
-  else
-    cout << "y is not a singluar matrix\n";
+  prog_name = argv[0];
 
-  cout << "\nz matrix is: \n";
-  z.print();
-  cout << "|z| = " << z.det() << "\n";
-  if(z.isSingular())
-    cout << "z is a singluar matrix\n";
-  else
-    cout << "z is not a singluar matrix\n";
+ if(argc < 3) {
+    cout << "\nERROR, missing input and output file names!\n";
+  cout << "Usage: " <<prog_name << "  <input file name> <output file name>\n";
+    return(-1);
+  }
 
-  cout << "\nz matrix inverse is: \n";
-  z.inverse();
-  z.print();
+  if(argc > 3) {
+    cout << "\nERROR, too many arguments!\n";
+  cout << "Usage: " <<prog_name << "  <input file name> <output file name>\n";
+    return(-1);
+  }
+ 
+  infile_name = argv[1];
+  outfile_name = argv[2];
+ 
+  if(infile_name == "--help" || outfile_name == "--help") {
+  cout << "\nProgram to read a list of integer numbers from a file\n";
+  cout << "Usage: " <<prog_name << "  <input file name> <output file name>\n";
+  return(-1);
 
-  x.assign(0.0, 1.0, 0.0, 1.0);
-  cout << "\nx matrix is: \n";
-  x.print();
-  cout << "\nx matrix inverse is: \n";
-  x.inverse();
-  x.print();
+  }
+  
+  infile.open(infile_name, fstream::in);
+  if(!infile.is_open()) {
+    cout << "\nERROR Could not open input file " << infile_name << "!\n";
+  cout << "Usage: " <<prog_name << "  <input file name> <output file name>\n";
+    return(-1);
+  }
 
-  y.assign(4.0, 3.0, 3.0, 2.0);
-  cout << "\ny matrix is: \n";
-  y.print();
-  cout << "y matrix inverse is: \n";
-  y.inverse();
-  y.print();
+  outfile.open(outfile_name, fstream::out);
+  if(!outfile.is_open()) {
+    cout << "\nERROR Could not open output file " << outfile_name << "!\n";
+  cout << "Usage: " <<prog_name << "  <input file name> <output file name>\n";
+    return(-1);
+  }
 
 
-}    /* end main */
+	cout << "\nx matrix is: \n";
+	cout << x;
+	cout << "\ny matrix is: \n";
+	cout << y;
+
+	x = y;
+
+	cout << "\nx = y\n";
+	cout << "x matrix now is: \n";
+	cout << x;
+
+	x.assign(1.0, 2.0, 8.0, 7.0);
+	y.assign(5.0, 4.0, 4.0, 5.0);
+
+	z = x + y;
+
+	cout << "\nx matrix is: \n";
+	cout << x;
+	cout << "\ny matrix is: \n";
+	cout << y;
+	cout << "\nz = x + y matrix is: \n";
+	cout << z;
+
+	x = z - y;
+
+	cout << "\nz matrix is: \n";
+	cout << z;
+	cout << "\ny matrix is: \n";
+	cout << y;
+	cout << "\nx = z - y matrix is: \n";
+	cout << x;
+
+	x.assign(30.0, 50.0, 25.0, 40.0);
+	y.assign(2.0, 3.0, 1.0, 1.0);
+
+	z = x * y;
+
+	cout << "\nx matrix is: \n";
+	cout << x;
+	cout << "\ny matrix is: \n";
+	cout << y;
+	cout << "\nz = x * y matrix is: \n";
+	cout << z;
+
+	x.assign(0.0, 0.0, 0.0, 0.0);
+	x = z / y;
+
+	cout << "\nz matrix is: \n";
+	cout << z;
+	cout << "\ny matrix is: \n";
+	cout << y;
+	cout << "\nx = z / y matrix is: \n";
+	cout << x;
+
+	double r = 2.0;
+
+	x = r * y;
+
+	cout << "\ny matrix is: \n";
+	cout << y;
+	cout << "\nx = 2.0 * y matrix is: \n";
+	cout << x;
+	
+	infile >> w;
+	cout << "\nRead w matrix from << argv[1] " << "\n";
+	cout << "w matrix is: \n";
+	cout << w;
+
+	w = r * w;
+	
+	outfile << w;
+	
+	infile.close();
+}		/* end main */
