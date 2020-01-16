@@ -52,7 +52,7 @@ Matrix Matrix::operator+(const Matrix& y){
 	z.a = a_temp.a + b_temp.a;
 	z.b = a_temp.b + b_temp.b;
 	z.c = a_temp.c + b_temp.c;
-	z.d =  a_temp.d + b_temp.d;
+	z.d = a_temp.d + b_temp.d;
 	return c;
 }
 
@@ -66,6 +66,38 @@ Matrix Matrix::operator-(const Matrix& y){
 	z.d = a_temp.d - b_temp.d;
 	return c;
 }
+Matrix Matrix::operator*(const Matrix& y){
+	Matrix a_temp, b_temp, z;
+	a_temp = *this;
+	b_temp = y;
+	z.a = (a_temp.a * b_temp.a)+(a_temp.b * b_temp.c);
+	z.b = (a_temp.a * b_temp.b)+(a_temp.b * b_temp.d);
+	z.c = (a_temp.c * b_temp.a)+(a_temp.d * b_temp.c);
+	z.d = (a_temp.c * b_temp.b)+(a_temp.d * b_temp.d);
+	return c;
+}
+Matrix Matrix::operator/(const Matrix& y){
+	Matrix a_temp, b_temp, z;
+	a_temp = *this;
+	b_temp = y.inverse();
+	z.a = (a_temp.a * b_temp.a)+(a_temp.b * b_temp.c);
+	z.b = (a_temp.a * b_temp.b)+(a_temp.b * b_temp.d);
+	z.c = (a_temp.c * b_temp.a)+(a_temp.d * b_temp.c);
+	z.d = (a_temp.c * b_temp.b)+(a_temp.d * b_temp.d);
+	return c;
+}
+
+Matrix Matrix::operator=(const Matrix& y){
+	this->a = y.a;
+	this->b = y.b;
+	this->c = y.c;
+	this->d = y.d;
+	return *this;
+}
+
+
+
+
 
 
 void Matrix::inverse(){
