@@ -39,10 +39,16 @@ Matrix::Matrix(double a, double b, double c, double d){
 void Matrix::inverse(){
 	double temp1 = this->a;
 	double temp2 = this->b;
-	this->a = this->d;
+	double temp3 = this->c;
+	double temp4 = this->d;
+	temp1 = (1/Matrix::det())*temp1;
+	temp2 = (1/Matrix::det())*temp2;
+	temp3 = (1/Matrix::det())*temp3;
+	temp4 = (1/Matrix::det())*temp4;
+	this->a = temp4;
+	this->b = temp2*-1;
+	this->c = temp3*-1;
 	this->d = temp1;
-	this->b = this->c;
-	this->c = temp2;
 }
 void Matrix::assign(double q, double w, double e, double r){
 	this->a = q;
