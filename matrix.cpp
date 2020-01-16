@@ -37,6 +37,7 @@ Matrix::Matrix(double a, double b, double c, double d){
 
 
 void Matrix::inverse(){
+	if(Matrix::isSingular()==false){
 	double temp1 = this->a;
 	double temp2 = this->b;
 	double temp3 = this->c;
@@ -49,6 +50,9 @@ void Matrix::inverse(){
 	this->b = temp2*-1;
 	this->c = temp3*-1;
 	this->d = temp1;
+	}else{
+		cout<<"Error: matrix is singular - it does not have an inverse\n";
+	}
 }
 void Matrix::assign(double q, double w, double e, double r){
 	this->a = q;
@@ -69,9 +73,7 @@ double Matrix::det(){
 	return det1 - det2;
 }
 bool Matrix::isSingular(void){
-	double det1 = this->a*this->d;
-	double det2 = this->b*this->c;
-	if(det1-det1==0){
+	if(Matrix::det()==0){
 		return true;
 	}else{
 		return false;
