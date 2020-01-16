@@ -66,15 +66,24 @@ Matrix Matrix::operator-(const Matrix& y){
 	z.d = a_temp.d - b_temp.d;
 	return c;
 }
-Matrix Matrix::operator*(const Matrix& y){
+Matrix  Matrix::operator*(const Matrix& x, const Matrix& y){
 	Matrix a_temp, b_temp, z;
-	a_temp = *this;
+	a_temp = x;
 	b_temp = y;
 	z.a = (a_temp.a * b_temp.a)+(a_temp.b * b_temp.c);
 	z.b = (a_temp.a * b_temp.b)+(a_temp.b * b_temp.d);
 	z.c = (a_temp.c * b_temp.a)+(a_temp.d * b_temp.c);
 	z.d = (a_temp.c * b_temp.b)+(a_temp.d * b_temp.d);
-	return c;
+	return z;
+}
+Matrix Matrix::operator*(const double r, const Matrix& x){
+	Matrix x_temp, z;
+	x_temp = x;
+	z.a = x_temp.a*r;
+	z.b = x_temp.b*r;
+	z.c = x_temp.c*r;
+	z.d = x_temp.d*r;
+	return z;
 }
 Matrix Matrix::operator/(const Matrix& y){
 	Matrix a_temp, b_temp, z;
@@ -84,18 +93,18 @@ Matrix Matrix::operator/(const Matrix& y){
 	z.b = (a_temp.a * b_temp.b)+(a_temp.b * b_temp.d);
 	z.c = (a_temp.c * b_temp.a)+(a_temp.d * b_temp.c);
 	z.d = (a_temp.c * b_temp.b)+(a_temp.d * b_temp.d);
-	return c;
+	return z;
 }
 
-Matrix Matrix::operator=(const Matrix& y){
-	this->a = y.a;
 	this->b = y.b;
 	this->c = y.c;
 	this->d = y.d;
 	return *this;
 }
 
-
+ostream& operator<<(ostream& os, const Matrix& m){
+	os << m.print();
+}
 
 
 

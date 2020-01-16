@@ -31,8 +31,10 @@ public:
 	Matrix& operator=(const Matrix& m);
 	Matrix operator+(const Matrix& y);
 	Matrix operator-(const Matrix&);
-	Matrix operator*(const Matrix&);
+	friend Matrix operator*(const double r, const Matrix& x);
+	friend Matrix operator*(const Matrix& x,const Matrix& y);
 	Matrix operator/(const Matrix&);
+	friend ostream& operator<<(ostream& os, const Matrix& m);
 
 
 
