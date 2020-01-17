@@ -35,8 +35,8 @@ public:
 	friend Matrix operator*(const double r, const Matrix& x);
 	friend Matrix operator*(const Matrix& x, const Matrix& y);
 	Matrix operator/(const Matrix& y);
-	friend ostream& operator<<(ostream& os, const Matrix& m);
-	friend ostream& operator<<(ostream &output, Matrix& m);
+	friend ostream& operator<<(ostream &os, Matrix &m);
+	friend ofstream& operator<<(ofstream &output, Matrix& m);
 	friend ifstream& operator>>(ifstream &input, Matrix& m);
 //	friend ostream& operator>>(istream &os, const Matrix& m);
 

@@ -106,10 +106,12 @@ Matrix& Matrix::operator=(const Matrix& y){
 	return *this;
 }
 
-ostream& operator<<(ostream& os, const Matrix& m){
-	Matrix temp;
-	temp = m;
-	os <<"---\t\t\t---\n"<<"|\t"<<fixed<<setprecision(3)<<temp.a<<"\t"<<temp.b<<"\t  |\n"<<"|\t\t\t  |\n"<<"|\t"<<temp.c<<"\t"<<temp.d<<"\t  |\n"<<"---\t\t\t---\n";
+ostream & operator<<(ostream &os, Matrix &m){
+	os<<"---\t\t\t---\n";
+	os<<"|\t"<<fixed<<setprecision(3)<<m.a<<"\t"<<m.b<<"\t  |\n";
+	os<<"|\t\t\t  |\n";
+	os<<"|\t"<<m.c<<"\t"<<m.d<<"\t  |\n";
+	os<<"---\t\t\t---\n";
 	return os;
 }
 
@@ -123,13 +125,13 @@ ifstream& operator>>(ifstream &input, Matrix &m){
 	return input;	
 	
 }
-ostream& operator<<(ostream &output, Matrix& m){
+/*ofstream& operator<<(ofstream &output, Matrix& m){
 	output << m.a;
 	output << m.b;
 	output << m.c;
 	output << m.d;
 	return output;
-}
+}*/
 
 void Matrix::inverse(){
 	if(Matrix::isSingular()==false){
