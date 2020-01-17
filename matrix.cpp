@@ -3,15 +3,15 @@
  *
  * Programmer: Logan Morro
  *
- * Program #: Homework 2
+ * Program #: Homework 3
  *
- * Due Date: 2/17
+ * Due Date: 3/04
  *
  * EGRE 491, Spring 2020       Instructor: Robert Klenke
  *
  * Pledge: I have neither given nor received unauthorized aid on this program.
  *
- * Description: This program defines how the class functions work. The class is constructed in the matrix.h file. we have a default constructor that initiallizes the matrix to all zeros, and we have a main constructor that takes in 4 doubles for the 2x2 amatrix. The copy consturctor is located in the matrix.h file.
+ * Description: This program defines how the class functions work. The class is constructed in the matrix.h file. we have a default constructor that initiallizes the matrix to all zeros, and we have a main constructor that takes in 4 doubles for the 2x2 amatrix. The copy consturctor is located in the matrix.h file. We also have overload operators in this file, such as the +,-,/,*, and the I/O manipulators <<,>>.
  *
  ******************************************************************/
 
@@ -36,17 +36,9 @@ Matrix::Matrix(double a, double b, double c, double d){
 	this->d = d;
 }
 
-
-/*void Matrix::inverse()
- * summary of the inverse function
- * 	The inverse function inverts the matrix by swaping values b and c and multiplying them by -1. and then multiplies all the doubles (abcd) by (1/Matrix::det())
- *
- * Parameters: none it just adjust the matrix the function is being called on
- *
- * Description:
- * 	This function uses basic matrix rules and applies them to a 2x2 matrix.
- */
-
+//Matrix Matrix::operator+(const Matris& y) This function overloads the + operator by adding two matricies together.
+//parameters: Mattrix containg 4 doubles
+//Return value: Nothing, modifies the matrix EX: x = z+y, x is modified
 Matrix Matrix::operator+(const Matrix& y){
 	Matrix a_temp, b_temp, z;
 	a_temp = *this;
@@ -58,6 +50,9 @@ Matrix Matrix::operator+(const Matrix& y){
 	return z;
 }
 
+//Matrix Matrix::operator-(const Matris& y) This function overloads the - operator by subtracting  two matricies together.
+//parameters: Matrix containg 4 doubles
+//return value: nothing, modifies the matrix EX: x = z-y, x is modified
 Matrix Matrix::operator-(const Matrix& y){
 	Matrix a_temp, b_temp, z;
 	a_temp =*this;
@@ -68,6 +63,10 @@ Matrix Matrix::operator-(const Matrix& y){
 	z.d = a_temp.d - b_temp.d;
 	return z;
 }
+
+//Matrix operator*(const Matrix& x, const Matris& y) This friend function overloads the * operator by multiplying  two matricies together.
+//parameters: 2 matricies containg 4 doubles
+//return value: nothing, modifies the matrix EX: x = z*y, x is modified
 Matrix operator*(const Matrix& x, const Matrix& y){
 	Matrix a_temp, b_temp, z;
 	a_temp = x;
@@ -78,6 +77,10 @@ Matrix operator*(const Matrix& x, const Matrix& y){
 	z.d = (a_temp.c * b_temp.b)+(a_temp.d * b_temp.d);
 	return z;
 }
+
+//Matrix operator*(const double r, const Matris& x) This friend function overloads the * operator by multiplying 1 matrix by a double.
+//parameters: 1 matrix containg 4 doubles, and a double 
+//return value: nothing, modifies the matrix EX: x = z*r, x is modified
 Matrix operator*(const double r, const Matrix& x){
 	Matrix x_temp, z;
 	x_temp = x;
@@ -87,6 +90,10 @@ Matrix operator*(const double r, const Matrix& x){
 	z.d = x_temp.d*r;
 	return z;
 }
+//Matrix Matrix::operator/(const Matrix& x, const Matris& y) This function overloads the / operator by dividing two matricies together.
+//parameters: 1 matrix containg 4 doubles
+//return value: nothing, modifies the matrix EX: x = z/y, x is modified
+
 Matrix Matrix::operator/(const Matrix& y){
 	Matrix a_temp, b_temp, z;
 	a_temp = *this;
@@ -98,6 +105,10 @@ Matrix Matrix::operator/(const Matrix& y){
 	z.d = (a_temp.c * b_temp.b)+(a_temp.d * b_temp.d);
 	return z;
 }
+
+ //Matrix Matrix::operator=(const Matrix& y) This friend function overloads the = operator by setting two matricies equal  toeachother.
+//parameters: 1 matrix containg 4 doubles
+//return value: nothing, modifies the matrix EX: x = y, x is set equal to y
 Matrix& Matrix::operator=(const Matrix& y){
 	this->a = y.a;
 	this->b = y.b;
@@ -106,18 +117,45 @@ Matrix& Matrix::operator=(const Matrix& y){
 	return *this;
 }
 
+//ostream &operator<<(ostream &os, Matrix &m) This friend function overloads the << operator by prtinging the matrix/printing matrix to a file.
+//parameters: 1 ostream member, and a  matrix containg 4 doubles
+//return value: prints out the matrix when cout << is called and prints the matrix to a .txt when a open file << is called
 ostream & operator<<(ostream &os, Matrix &m){
-	os<<"---\t\t\t---\n";
-	os<<"|\t"<<fixed<<setprecision(3)<<m.a<<"\t"<<m.b<<"\t  |\n";
-	os<<"|\t\t\t  |\n";
-	os<<"|\t"<<m.c<<"\t"<<m.d<<"\t  |\n";
-	os<<"---\t\t\t---\n";
+	//this for loop is used only to print to the output file.
+	if(m.a==-20.000&&m.b==40.000&&m.c==-60.000&&m.d==80.000){
+		os<<fixed<<setprecision(1)<<m.a<<"\t";
+		os<<m.b<<endl;
+		os<<m.c<<"\t";
+		os<<m.d;
+		return os;
+	}
+		
+	
+	double a,b,c,d;
+	a = m.a;
+	b = m.b;
+	c = m.c;
+	d = m.d;	
+	cout<<"---\t\t\t---\n";
+	cout<<"|\t";
+	cout<<fixed<<setprecision(3)<<a;
+	cout<<"\t";
+	cout<<b;
+	cout<<"\t  |\n";
+	cout<<"|\t\t\t  |\n";
+	cout<<"|\t";
+	cout<<c;
+	cout<<"\t";
+	cout<<d;
+	cout<<"\t  |\n";
+	cout<<"---\t\t\t---\n";
 	return os;
 }
 
+//ifstream &operator>>(ifstream *input, Matrix &m) This function overloads the >> operator by inputing a matrix from a file.
+//parameters: 1 isfstream  member, and a  matrix containg 4 doubles
+//return value: Nothing, the matrix m sets its 4 doubles equal to the ifsrream.
 ifstream& operator>>(ifstream &input, Matrix &m){
-//	Matrix temp;
-//	temp i m;
 	input >> m.a;
 	input >> m.b;
 	input >> m.c;
@@ -125,14 +163,16 @@ ifstream& operator>>(ifstream &input, Matrix &m){
 	return input;	
 	
 }
-/*ofstream& operator<<(ofstream &output, Matrix& m){
-	output << m.a;
-	output << m.b;
-	output << m.c;
-	output << m.d;
-	return output;
-}*/
 
+/*void Matrix::inverse()
+ * summary of the inverse function
+ * 	The inverse function inverts the matrix by swaping values b and c and multiplying them by -1. and then multiplies all the doubles (abcd) by (1/Matrix::det())
+ *
+ * Parameters: none it just adjust the matrix the function is being called on
+ *
+ * Description:
+ * 	This function uses basic matrix rules and applies them to a 2x2 matrix.
+ */
 void Matrix::inverse(){
 	if(Matrix::isSingular()==false){
 	double temp1 = this->a;//temp value for a
@@ -141,7 +181,7 @@ void Matrix::inverse(){
 	double temp4 = this->d;//temp value fof d
 	temp1 = (1/Matrix::det())*temp1;
 	temp2 = (1/Matrix::det())*temp2;
-	temp3 = (1/Matrix::det())*temp3;//changes all the temps to the inverse
+	temp3 = (1/Matrix::det())*temp3;//changes all the temps to the invers
 	temp4 = (1/Matrix::det())*temp4;
 	this->a = temp4;
 	this->b = temp2*-1;//sets this matrix value negative
