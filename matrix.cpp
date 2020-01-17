@@ -16,8 +16,10 @@
  ******************************************************************/
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <iomanip>
+#include <sstream>
 #include "matrix.h"
 //Matrix::Matrix() is the default constructor that initalizes all 4 doubles to zero.
 Matrix::Matrix(){
@@ -46,27 +48,27 @@ Matrix::Matrix(double a, double b, double c, double d){
  */
 
 Matrix Matrix::operator+(const Matrix& y){
-	Matrix a_temp, b_temp, c;
+	Matrix a_temp, b_temp, z;
 	a_temp = *this;
 	b_temp = y;
 	z.a = a_temp.a + b_temp.a;
 	z.b = a_temp.b + b_temp.b;
 	z.c = a_temp.c + b_temp.c;
 	z.d = a_temp.d + b_temp.d;
-	return c;
+	return z;
 }
 
 Matrix Matrix::operator-(const Matrix& y){
-	Matrix a_temp, b_temp, c;
-	a_temp = *this;
+	Matrix a_temp, b_temp, z;
+	a_temp =*this;
 	b_temp = y;
 	z.a = a_temp.a - b_temp.a;
 	z.b = a_temp.b - b_temp.b;
 	z.c = a_temp.c - b_temp.c;
 	z.d = a_temp.d - b_temp.d;
-	return c;
+	return z;
 }
-Matrix  Matrix::operator*(const Matrix& x, const Matrix& y){
+Matrix operator*(const Matrix& x, const Matrix& y){
 	Matrix a_temp, b_temp, z;
 	a_temp = x;
 	b_temp = y;
@@ -76,7 +78,7 @@ Matrix  Matrix::operator*(const Matrix& x, const Matrix& y){
 	z.d = (a_temp.c * b_temp.b)+(a_temp.d * b_temp.d);
 	return z;
 }
-Matrix Matrix::operator*(const double r, const Matrix& x){
+Matrix operator*(const double r, const Matrix& x){
 	Matrix x_temp, z;
 	x_temp = x;
 	z.a = x_temp.a*r;
@@ -88,14 +90,16 @@ Matrix Matrix::operator*(const double r, const Matrix& x){
 Matrix Matrix::operator/(const Matrix& y){
 	Matrix a_temp, b_temp, z;
 	a_temp = *this;
-	b_temp = y.inverse();
+	b_temp = y;
+	b_temp.inverse();
 	z.a = (a_temp.a * b_temp.a)+(a_temp.b * b_temp.c);
 	z.b = (a_temp.a * b_temp.b)+(a_temp.b * b_temp.d);
 	z.c = (a_temp.c * b_temp.a)+(a_temp.d * b_temp.c);
 	z.d = (a_temp.c * b_temp.b)+(a_temp.d * b_temp.d);
 	return z;
 }
-
+Matrix& Matrix::operator=(const Matrix& y){
+	this->a = y.a;
 	this->b = y.b;
 	this->c = y.c;
 	this->d = y.d;
@@ -103,11 +107,29 @@ Matrix Matrix::operator/(const Matrix& y){
 }
 
 ostream& operator<<(ostream& os, const Matrix& m){
-	os << m.print();
+	Matrix temp;
+	temp = m;
+	os <<"---\t\t\t---\n"<<"|\t"<<fixed<<setprecision(3)<<temp.a<<"\t"<<temp.b<<"\t  |\n"<<"|\t\t\t  |\n"<<"|\t"<<temp.c<<"\t"<<temp.d<<"\t  |\n"<<"---\t\t\t---\n";
+	return os;
 }
 
-
-
+ifstream& operator>>(ifstream &input, Matrix &m){
+//	Matrix temp;
+//	temp i m;
+	input >> m.a;
+	input >> m.b;
+	input >> m.c;
+	input >> m.d;
+	return input;	
+	
+}
+ostream& operator<<(ostream &output, Matrix& m){
+	output << m.a;
+	output << m.b;
+	output << m.c;
+	output << m.d;
+	return output;
+}
 
 void Matrix::inverse(){
 	if(Matrix::isSingular()==false){
@@ -127,6 +149,7 @@ void Matrix::inverse(){
 		cout<<"Error: matrix is singular - it does not have an inverse\n";
 	}
 }
+
 /*void Matrix::assign(double, double, double, double)
  * Summary of the assign function
  * 	The assign function takes in 4 doubles and assigns them to the current matrix values.

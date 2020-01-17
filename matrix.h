@@ -19,6 +19,7 @@ using namespace std;
 class Matrix
 {
 public:
+
 	Matrix();	//default constructor
 	Matrix(double a, double b, double c, double d);	//main constructor
 	Matrix(const Matrix &copy){
@@ -30,16 +31,20 @@ public:
 
 	Matrix& operator=(const Matrix& m);
 	Matrix operator+(const Matrix& y);
-	Matrix operator-(const Matrix&);
+	Matrix operator-(const Matrix& y);
 	friend Matrix operator*(const double r, const Matrix& x);
-	friend Matrix operator*(const Matrix& x,const Matrix& y);
-	Matrix operator/(const Matrix&);
+	friend Matrix operator*(const Matrix& x, const Matrix& y);
+	Matrix operator/(const Matrix& y);
 	friend ostream& operator<<(ostream& os, const Matrix& m);
+	friend ostream& operator<<(ostream &output, Matrix& m);
+	friend ifstream& operator>>(ifstream &input, Matrix& m);
+//	friend ostream& operator>>(istream &os, const Matrix& m);
 
 
 
 //	~Matrix();	//destructor
 	void inverse();
+//	void inverseconst()const;
 	bool isSingular(void);
 	void assign(double, double, double, double);
 	void print(void);
